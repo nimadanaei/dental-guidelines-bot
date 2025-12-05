@@ -1,5 +1,2 @@
-#!/bin/zsh
-cd ~/Desktop/dental_bot
-source venv/bin/activate
-export OPENAI_API_KEY="YOUR_OPENAI_KEY_HERE"
-uvicorn app:app --port 8000
+#!/bin/sh
+python3 -m uvicorn app:app --host 0.0.0.0 --port $PORT

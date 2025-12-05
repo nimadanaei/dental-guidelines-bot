@@ -183,7 +183,7 @@
       </div>
       <div class="status">
         <div class="status-dot"></div>
-        <span id="status-text">Connected to local server</span>
+        <span id="status-text">Connected to Railway backend</span>
       </div>
     </div>
 
@@ -202,7 +202,7 @@
           <span id="btn-label">Send</span>
           <div id="btn-spinner" class="spinner" style="display:none;"></div>
         </button>
-        <div class="small">Backend: http://127.0.0.1:8000/ask</div>
+        <div class="small">Backend: https://dental-guidelines-bot-production.up.railway.app/ask</div>
       </div>
     </div>
   </div>
@@ -268,7 +268,7 @@
         }
       } catch (err) {
         appendMessage(
-          "I couldn’t reach the backend at http://127.0.0.1:8000/ask.",
+          "I couldn’t reach the backend at https://dental-guidelines-bot-production.up.railway.app/ask.",
           "bot",
           String(err)
         );

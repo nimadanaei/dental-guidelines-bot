@@ -2,113 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Therapeutic Guidelines: Oral & Dental Assistant</title>
+  <title>Therapeutic Guidelines: Oral and Dental (Version 4) Assistant</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root {
-      color-scheme: light;
-      --bg: #f3f4f6;
-      --card-bg: #ffffff;
-      --border-subtle: #e5e7eb;
-      --border-strong: #d1d5db;
-      --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.08);
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
-      --radius-lg: 18px;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        -apple-system, sans-serif;
     }
 
     body {
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top, rgba(191, 219, 254, 0.6) 0, transparent 55%),
-        radial-gradient(circle at bottom, #f3f4f6 0, #e5e7eb 60%);
+      background: radial-gradient(circle at top, #e5ebff 0, #eef2ff 40%, #f5f5f7 100%);
+      padding: 24px;
+      color: #111827;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 32px 16px;
-      color: var(--text-main);
+      align-items: stretch;
     }
 
     .shell {
-  width: 100%;
-  max-width: 1120px;   /* wider so the chat + chips don’t feel cramped */
-  background: var(--card-bg);
-  border-radius: 22px;
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+      width: 100%;
+      max-width: 1200px;
+      background: #f9fafb;
+      border-radius: 20px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
-    /* Header */
-
-    .header {
-      padding: 16px 24px 14px 24px;
-      border-bottom: 1px solid var(--border-subtle);
+    /* Top header --------------------------------------------------------- */
+    .top-bar {
+      padding: 16px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      background: linear-gradient(180deg, #f9fafb, #f3f4f6);
+      background: linear-gradient(135deg, #f9fafb, #eef2ff);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
     }
 
-    .id-block {
+    .title-row {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 30% 20%, #93c5fd 0, #2563eb 45%, #1d4ed8 75%);
+    .logo-pill {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: linear-gradient(145deg, #2563eb, #1d4ed8);
       color: white;
       font-weight: 700;
       font-size: 16px;
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
     }
 
-    .title-group {
+    .title-block {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
 
-    .title {
+    .app-title {
       font-size: 17px;
       font-weight: 600;
-      letter-spacing: 0.01em;
+      color: #111827;
     }
 
-    .subtitle {
+    .app-subtitle {
       font-size: 12px;
-      color: var(--text-muted);
+      color: #6b7280;
     }
 
     .status-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 11px;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid #bbf7d0;
       background: #ecfdf3;
+      border: 1px solid #bbf7d0;
       font-size: 11px;
       color: #166534;
+      font-weight: 500;
       white-space: nowrap;
     }
 
@@ -117,195 +101,239 @@
       height: 8px;
       border-radius: 999px;
       background: #22c55e;
-      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.35);
     }
 
-    @media (max-width: 640px) {
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
+    /* Layout: sidebar + main -------------------------------------------- */
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      height: 600px;
+      background: #f9fafb;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 12px;
+      }
+      .shell {
+        border-radius: 16px;
+      }
+      .layout {
+        grid-template-columns: 1fr;
+        height: auto;
       }
     }
 
-    /* Helper strip */
-
-    .helper-strip {
-      padding: 14px 24px 10px 24px;
-      border-bottom: 1px solid var(--border-subtle);
+    /* Sidebar ----------------------------------------------------------- */
+    .sidebar {
+      padding: 16px 18px 18px 18px;
+      border-right: 1px solid rgba(148, 163, 184, 0.2);
       background: #f9fafb;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
     }
 
-    .helper-top {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: flex-start;
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      margin-bottom: 6px;
     }
 
     .how-card {
-      flex: 1.4;
-      min-width: 230px;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      background: #ffffff;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: var(--text-muted);
+      background: white;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 12px 12px 10px 12px;
+      box-shadow: 0 6px 15px rgba(15, 23, 42, 0.06);
+      font-size: 12px;
+      line-height: 1.5;
+      color: #374151;
+      margin-bottom: 12px;
     }
 
-    .how-title {
+    .how-card em {
+      font-style: normal;
+      font-weight: 500;
+      color: #111827;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .chip-label {
       font-size: 11px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #9ca3af;
-      margin-bottom: 4px;
-    }
-
-    .examples {
-      flex: 1;
-      min-width: 230px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      color: #6b7280;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
     }
 
     .chip {
+      background: #eff6ff;
       border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: #ffffff;
-      font-size: 12px;
       padding: 6px 10px;
-      cursor: pointer;
-      color: #374151;
+      font-size: 11px;
+      color: #1d4ed8;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.12s ease, border-color 0.12s ease, transform 0.05s ease;
-      max-width: 100%;
-      text-align: left;
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      cursor: default;
+      white-space: nowrap;
     }
 
-    .chip span.label {
-      font-weight: 500;
-    }
-
-    .chip span.tag {
-      text-transform: uppercase;
+    .chip span.code {
       font-size: 10px;
-      letter-spacing: 0.08em;
-      color: #9ca3af;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #6b7280;
     }
 
-    .chip:hover {
-      background: #eff6ff;
-      border-color: #93c5fd;
-      transform: translateY(-1px);
-    }
-
-    .helper-bottom {
+    .behaviour {
       font-size: 11px;
-      color: #9ca3af;
+      color: #6b7280;
+      line-height: 1.5;
     }
 
-    .helper-bottom strong {
+    .behaviour li {
+      margin-left: 14px;
+      margin-bottom: 4px;
+    }
+
+    .important-line {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 12px;
+    }
+
+    .important-line span {
+      font-weight: 600;
       color: #4b5563;
-      font-weight: 500;
     }
 
-    /* Chat shell */
-
-    .content {
-      padding: 14px 18px 16px 18px;
+    /* Main chat area ---------------------------------------------------- */
+    .main {
+      padding: 16px 16px 0 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background: #ffffff;
+      background: radial-gradient(circle at top, #ffffff 0, #f9fafb 55%);
     }
 
     .chat-card {
-      border-radius: 16px;
-      border: 1px solid var(--border-subtle);
-      background: #fafafa;
+      flex: 1;
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      max-height: 70vh;
-      min-height: 380px;
     }
 
-    .chat {
-      flex: 1;
-      padding: 14px 16px 10px 16px;
-      overflow-y: auto;
-    }
-
-    .message-row {
+    .chat-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
       display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #f9fafb, #ffffff);
     }
 
-    .avatar {
-      width: 26px;
-      height: 26px;
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #374151;
+    }
+
+    .chat-header-tag {
+      font-size: 11px;
+      padding: 2px 8px;
       border-radius: 999px;
-      flex-shrink: 0;
+      background: #eef2ff;
+      color: #4f46e5;
+      border: 1px solid rgba(129, 140, 248, 0.55);
+    }
+
+    .chat-logo-small {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #2563eb, #1d4ed8);
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
     }
 
-    .avatar.bot {
-      background: #e5edff;
-      color: #1d4ed8;
-      border: 1px solid #c7d2fe;
+    .chat-scroll {
+      flex: 1;
+      padding: 18px 22px 16px 22px;
+      overflow-y: auto;
     }
 
-    .avatar.user {
-      background: #111827;
-      color: #f9fafb;
-    }
-
-    .bubble {
+    .message {
+      margin-bottom: 12px;
       max-width: 100%;
-      padding: 9px 11px;
-      border-radius: 12px;
       font-size: 14px;
       line-height: 1.5;
       white-space: pre-wrap;
-      position: relative;
-      border: 1px solid transparent;
-      background: #f3f4f6;
-      text-align: left;
     }
 
-    .bubble.bot {
-      border-color: #e5e7eb;
-      background: #ffffff;
-      border-bottom-left-radius: 4px;
-    }
-
-    .bubble.user {
+    .message.user {
       margin-left: auto;
       background: #2563eb;
-      color: #eff6ff;
-      border-color: #1d4ed8;
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 10px 12px;
+      max-width: 70%;
       border-bottom-right-radius: 4px;
     }
 
-    .bubble ul {
-      margin-top: 6px;
-      padding-left: 18px;
+    .message.bot {
+      margin-right: auto;
+      background: #f9fafb;
+      color: #111827;
+      border-radius: 14px;
+      padding: 10px 12px;
+      max-width: 80%;
+      border-bottom-left-radius: 4px;
+      border: 1px solid rgba(229, 231, 235, 0.9);
     }
 
-    .bubble li {
-      margin-bottom: 4px;
+    /* INTRO message special styling ------------------------------------ */
+    .message.bot.intro {
+      background: #ffffff;
+      border: none;
+      padding: 28px 40px;
+      margin: 0 auto;
+      max-width: 900px;
+      text-align: left;
+      line-height: 1.55;
+      color: #111827;
+      box-shadow: none;
+    }
+
+    .intro p {
+      margin: 0 0 16px 0;
+    }
+
+    .intro ul {
+      margin: 0 0 16px 20px;
+      padding: 0;
+    }
+
+    .intro li {
+      margin-bottom: 8px;
     }
 
     .meta {
@@ -314,232 +342,220 @@
       margin-top: 4px;
     }
 
-    .typing {
-      display: inline-flex;
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .typing-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: #9ca3af;
-      opacity: 0.6;
-      animation: bounce 1s infinite ease-in-out;
-    }
-
-    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
-
-    @keyframes bounce {
-      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
-      40% { transform: translateY(-3px); opacity: 1; }
-    }
-
-    .input-area {
-      border-top: 1px solid var(--border-subtle);
-      padding: 10px 12px 11px 12px;
+    .input-shell {
+      padding: 10px 18px 14px 18px;
+      border-top: 1px solid rgba(229, 231, 235, 0.9);
       background: #f9fafb;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
     .input-row {
       display: flex;
-      gap: 8px;
-      align-items: flex-end;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border-radius: 999px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      padding-left: 16px;
+      padding-right: 6px;
+      box-shadow: 0 4px 14px rgba(148, 163, 184, 0.35);
     }
 
     textarea {
       flex: 1;
-      resize: none;
-      min-height: 42px;
-      max-height: 120px;
-      padding: 9px 11px;
-      border-radius: 999px;
-      border: 1px solid var(--border-strong);
-      background: #ffffff;
-      color: var(--text-main);
-      font-size: 14px;
+      border: none;
       outline: none;
-      transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      resize: none;
+      padding: 10px 0;
+      font-size: 13px;
+      color: #111827;
+      background: transparent;
+      max-height: 120px;
     }
 
     textarea::placeholder {
       color: #9ca3af;
     }
 
-    textarea:focus {
-      border-color: #60a5fa;
-      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
-    }
-
     button {
+      border: none;
+      outline: none;
+      background: #2563eb;
+      color: white;
       padding: 9px 18px;
       border-radius: 999px;
-      border: none;
-      background: var(--accent);
-      color: white;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       white-space: nowrap;
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.25);
     }
 
     button:disabled {
       opacity: 0.6;
       cursor: default;
-      box-shadow: none;
     }
 
     .spinner {
       width: 14px;
       height: 14px;
       border-radius: 999px;
-      border: 2px solid rgba(148, 163, 184, 0.5);
+      border: 2px solid rgba(148, 163, 184, 0.6);
       border-top-color: white;
       animation: spin 0.7s linear infinite;
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
-    .input-hints {
+    .input-footer {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
       color: #9ca3af;
-      flex-wrap: wrap;
-      gap: 4px;
+      padding: 0 2px;
     }
 
-    .input-hints code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      background: #e5e7eb;
-      padding: 1px 4px;
-      border-radius: 4px;
-    }
-
-    .disclaimer {
-      font-size: 11px;
-      color: #9ca3af;
-      padding-left: 3px;
-    }
-
-    .disclaimer strong {
-      color: #4b5563;
-      font-weight: 500;
+    .input-footer span.code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
     }
   </style>
 </head>
 <body>
   <div class="shell">
-    <header class="header">
-      <div class="id-block">
-        <div class="logo">TG</div>
-        <div class="title-group">
-   <div class="title">Therapeutic Guidelines: Oral and Dental (Version 4) Assistant</div>
-<div class="subtitle">
-  Answers constrained to your copy of Therapeutic Guidelines: Oral and Dental, Version 4 (2025 update).
-</div>
-
+    <!-- Top header -->
+    <div class="top-bar">
+      <div class="title-row">
+        <div class="logo-pill">TG</div>
+        <div class="title-block">
+          <div class="app-title">
+            Therapeutic Guidelines: Oral and Dental (Version 4) Assistant
+          </div>
+          <div class="app-subtitle">
+            Answers constrained to your copy of Therapeutic Guidelines: Oral and Dental, Version 4 (2025 update).
+          </div>
+        </div>
       </div>
       <div class="status-pill">
         <div class="status-dot"></div>
-        <span id="status-text">Connected to guidelines backend</span>
+        Connected to guidelines backend
       </div>
-    </header>
+    </div>
 
-    <!-- Helper strip -->
-    <section class="helper-strip">
-      <div class="helper-top">
+    <!-- Main layout -->
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="section-label">HOW TO ASK</div>
         <div class="how-card">
-          <div class="how-title">How to ask</div>
-          <div>
-            Formulate questions the way you would in clinic, but anchor them to the guideline topic.
-            For example, include terms such as <em>postoperative pain</em>, <em>acute odontogenic infection</em>, or
-            <em>infective endocarditis prophylaxis</em>.
+          Formulate questions the way you would in clinic, but anchor them to the
+          guideline topic. For example, include terms such as
+          <em>postoperative pain</em>, <em>acute odontogenic infection</em>, or
+          <em>infective endocarditis prophylaxis</em>.
+        </div>
+
+        <div class="chips-row">
+          <div class="chip-label">SUGGESTIONS</div>
+          <div class="chip">
+            <span class="code">EXAMPLE</span>
+            First-line analgesia for uncomplicated postoperative pain
+          </div>
+          <div class="chip">
+            <span class="code">EXAMPLE</span>
+            When to avoid or use caution with ibuprofen
+          </div>
+          <div class="chip">
+            <span class="code">EXAMPLE</span>
+            Antibiotic regimen for acute odontogenic infection
           </div>
         </div>
-        <div class="examples">
-          <button class="chip" data-question="According to the Oral and Dental Therapeutic Guidelines, what are the recommended first-line analgesics for mild to moderate postoperative dental pain in an otherwise healthy adult?">
-            <span class="tag">Example</span>
-            <span class="label">First-line analgesia for uncomplicated postoperative pain</span>
-          </button>
-          <button class="chip" data-question="Within the Oral and Dental Therapeutic Guidelines, in which situations should ibuprofen be avoided or used with caution?">
-            <span class="tag">Example</span>
-            <span class="label">When to avoid or use caution with ibuprofen</span>
-          </button>
-          <button class="chip" data-question="Summarise the recommended antibiotic regimen for an acute odontogenic infection, as outlined in the Oral and Dental guidelines.">
-            <span class="tag">Example</span>
-            <span class="label">Antibiotic regimen for acute odontogenic infection</span>
-          </button>
-        </div>
-      </div>
-      <div class="helper-bottom">
-        <strong>Important:</strong> The assistant stays inside the Oral &amp; Dental guidelines. If the document does not clearly
-        address your question, it will say so rather than guess.
-      </div>
-    </section>
 
-    <!-- Chat + input -->
-    <main class="content">
-      <section class="chat-card">
-        <div id="chat" class="chat">
-          <div class="message-row">
-            <div class="avatar bot">TG</div>
-            <div class="bubble bot">
-              Welcome.
-              <br><br>
-              I am an assistant constrained to the content of your copy of
-              <strong>Therapeutic Guidelines: Oral &amp; Dental (2025 update)</strong>.
-              I will:
+        <div class="section-label">BEHAVIOUR</div>
+        <ul class="behaviour">
+          <li>
+            The assistant will only draw on your loaded Oral and Dental guidelines PDF.
+          </li>
+          <li>
+            If the answer is not clearly present, it will say so rather than infer.
+          </li>
+          <li>
+            Responses support guideline navigation and do not replace clinical judgement.
+          </li>
+        </ul>
+
+        <p class="important-line">
+          <span>Important:</span> Always apply your own clinical judgement, local protocols and regulatory requirements.
+        </p>
+      </aside>
+
+      <!-- Main chat panel -->
+      <main class="main">
+        <div class="chat-card">
+          <div class="chat-header">
+            <div class="chat-header-left">
+              <div class="chat-logo-small">TG</div>
+              <span>Welcome.</span>
+            </div>
+            <div class="chat-header-tag">Guidelines-constrained answers</div>
+          </div>
+
+          <div id="chat" class="chat-scroll">
+            <!-- Introductory bot message -->
+            <div class="message bot intro">
+              <p><strong>Welcome. 👋</strong></p>
+
+              <p>
+                I am an assistant constrained to the content of your copy of
+                <strong>Therapeutic Guidelines: Oral and Dental (Version 4, 2025 update)</strong>.
+                I will:
+              </p>
+
               <ul>
                 <li>Retrieve the most relevant guideline pages for your query</li>
                 <li>Answer using only those passages</li>
                 <li>Indicate which pages were used</li>
               </ul>
-              <div class="meta">
-                If the guidelines do not clearly address a question, I will state that this is not specified rather than inferring or extrapolating.
-              </div>
+
+              <p style="font-size: 13px; color: #6b7280;">
+                If the guidelines do not clearly address your question, I will state that this
+                is not specified rather than inferring or extrapolating.
+              </p>
+            </div>
+          </div>
+
+          <!-- Input area -->
+          <div class="input-shell">
+            <div class="input-row">
+              <textarea
+                id="question"
+                placeholder="Ask about dosing, indications, cautions, or management as described in the Oral and Dental guidelines..."
+              ></textarea>
+              <button id="send-btn" onclick="sendQuestion()">
+                <span id="btn-label">Send</span>
+                <div id="btn-spinner" class="spinner" style="display:none;"></div>
+              </button>
+            </div>
+            <div class="input-footer">
+              <span>Press <strong>Enter</strong> to send · <strong>Shift+Enter</strong> for a new line</span>
+              <span>Backend endpoint: <span class="code">/ask</span></span>
             </div>
           </div>
         </div>
-
-        <div class="input-area">
-          <div class="input-row">
-            <textarea
-              id="question"
-              placeholder="Ask about dosing, indications, cautions, or management as described in the Oral &amp; Dental guidelines…"
-            ></textarea>
-            <button id="send-btn" onclick="sendQuestion()">
-              <span id="btn-label">Send</span>
-              <div id="btn-spinner" class="spinner" style="display:none;"></div>
-            </button>
-          </div>
-          <div class="input-hints">
-            <span>Press <strong>Enter</strong> to send · <strong>Shift+Enter</strong> for a new line</span>
-            <span>Backend endpoint: <code>/ask</code></span>
-          </div>
-        </div>
-      </section>
-
-      <p class="disclaimer">
-        <strong>Disclaimer:</strong> This tool reflects only the content of the loaded Oral &amp; Dental guidelines PDF and does not
-        provide personalised medical advice or replace clinician responsibility.
-      </p>
-    </main>
+      </main>
+    </div>
   </div>
 
   <script>
+    // On Railway the frontend and backend share the same origin,
+    // so we can call the FastAPI /ask route with a relative URL.
     const API_URL = "/ask";
 
     const chatEl = document.getElementById("chat");
@@ -548,113 +564,60 @@
     const btnLabel = document.getElementById("btn-label");
     const btnSpinner = document.getElementById("btn-spinner");
 
-    let typingRow = null;
-
     function appendMessage(content, sender, meta) {
-      const row = document.createElement("div");
-      row.className = "message-row";
-
-      const avatar = document.createElement("div");
-      avatar.className = "avatar " + sender;
-      avatar.textContent = sender === "user" ? "You" : "TG";
-
-      const bubble = document.createElement("div");
-      bubble.className = "bubble " + sender;
-      bubble.textContent = content;
+      const msg = document.createElement("div");
+      msg.className = `message ${sender}`;
+      msg.textContent = content;
 
       if (meta) {
-        const metaEl = document.createElement("div");
-        metaEl.className = "meta";
-        metaEl.textContent = meta;
-        bubble.appendChild(metaEl);
+        const m = document.createElement("div");
+        m.className = "meta";
+        m.textContent = meta;
+        msg.appendChild(m);
       }
 
-      row.appendChild(avatar);
-      row.appendChild(bubble);
-      chatEl.appendChild(row);
+      chatEl.appendChild(msg);
       chatEl.scrollTop = chatEl.scrollHeight;
     }
 
-    function showTyping() {
-      if (typingRow) return;
-      typingRow = document.createElement("div");
-      typingRow.className = "message-row";
-
-      const avatar = document.createElement("div");
-      avatar.className = "avatar bot";
-      avatar.textContent = "TG";
-
-      const bubble = document.createElement("div");
-      bubble.className = "bubble bot";
-
-      const label = document.createElement("div");
-      label.textContent = "Reviewing relevant pages…";
-      label.style.fontSize = "12px";
-      label.style.color = "#6b7280";
-
-      const typing = document.createElement("div");
-      typing.className = "typing";
-      for (let i = 0; i < 3; i++) {
-        const dot = document.createElement("div");
-        dot.className = "typing-dot";
-        typing.appendChild(dot);
-      }
-
-      bubble.appendChild(label);
-      bubble.appendChild(typing);
-
-      typingRow.appendChild(avatar);
-      typingRow.appendChild(bubble);
-      chatEl.appendChild(typingRow);
-      chatEl.scrollTop = chatEl.scrollHeight;
-    }
-
-    function hideTyping() {
-      if (typingRow && typingRow.parentNode) {
-        typingRow.parentNode.removeChild(typingRow);
-      }
-      typingRow = null;
-    }
-
-    async function sendQuestion(prefilled) {
-      const text = typeof prefilled === "string" ? prefilled : qEl.value.trim();
+    async function sendQuestion() {
+      const text = qEl.value.trim();
       if (!text) return;
 
       appendMessage(text, "user");
       qEl.value = "";
 
       sendBtn.disabled = true;
-      btnLabel.textContent = "Thinking…";
+      btnLabel.textContent = "Thinking...";
       btnSpinner.style.display = "inline-block";
-      showTyping();
 
       try {
         const res = await fetch(API_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: text })
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ question: text }),
         });
-
-        hideTyping();
 
         if (!res.ok) {
           const errText = await res.text();
           appendMessage(
-            "Sorry, something went wrong when querying the guidelines.",
+            "Sorry, something went wrong talking to the backend.",
             "bot",
             `HTTP ${res.status}: ${errText}`
           );
         } else {
           const data = await res.json();
-          const pages = (data.used_pages && data.used_pages.length)
-            ? `Based on guideline pages: ${data.used_pages.join(", ")}`
-            : "No specific pages could be clearly identified.";
+          const pages =
+            data.used_pages && data.used_pages.length
+              ? `Based on pages: ${data.used_pages.join(", ")}`
+              : "No specific pages identified.";
           appendMessage(data.answer, "bot", pages);
         }
       } catch (err) {
-        hideTyping();
         appendMessage(
-          "I couldn't reach the backend at /ask.",
+          "I couldn’t reach the backend service.",
           "bot",
           String(err)
         );
@@ -665,13 +628,7 @@
       }
     }
 
-    document.querySelectorAll(".chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        const q = chip.getAttribute("data-question");
-        sendQuestion(q);
-      });
-    });
-
+    // Enter to send, Shift+Enter for newline
     qEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();

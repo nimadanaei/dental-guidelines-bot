@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dental Guidelines Chatbot</title>
+  <title>Dental Guidelines Assistant</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --bg-elevated: #020617;
+      --border-subtle: #1f2937;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --chip-bg: rgba(15, 23, 42, 0.9);
+      --chip-border: rgba(148, 163, 184, 0.4);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,102 +26,369 @@
     }
 
     body {
-      background: #0f172a;
-      color: #e5e7eb;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #1d283a 0, transparent 55%),
+        radial-gradient(circle at bottom right, #020617 0, #020617 55%);
+      color: var(--text-main);
       display: flex;
       justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      align-items: stretch;
       padding: 16px;
     }
 
-    .app {
+    .shell {
       width: 100%;
-      max-width: 900px;
-      background: #020617;
-      border-radius: 16px;
-      border: 1px solid #1f2937;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
+      max-width: 1120px;
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow:
+        0 28px 60px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 4.2fr);
       overflow: hidden;
     }
 
-    .header {
-      padding: 16px 20px;
-      border-bottom: 1px solid #1f2937;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(90deg, #0b1120, #020617);
+    @media (max-width: 900px) {
+      .shell {
+        display: flex;
+        flex-direction: column-reverse;
+      }
     }
 
-    .title {
-      font-size: 18px;
+    /* SIDEBAR */
+
+    .sidebar {
+      padding: 20px 18px 18px 18px;
+      border-right: 1px solid var(--border-subtle);
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 15%, #38bdf8 0, #2563eb 35%, #0f172a 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e5e7eb;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.6);
+    }
+
+    .brand-title {
+      font-size: 17px;
       font-weight: 600;
     }
 
-    .subtitle {
+    .brand-sub {
       font-size: 12px;
-      color: #9ca3af;
+      color: var(--text-muted);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      font-size: 11px;
+      color: #bbf7d0;
+      margin-top: 6px;
+      width: fit-content;
     }
 
     .status-dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
-      margin-right: 6px;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
     }
 
-    .status {
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 4px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: #38bdf8;
+    }
+
+    .hint-list {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hint-list li::before {
+      content: "•";
+      margin-right: 6px;
+      color: #64748b;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid var(--chip-border);
+      background: var(--chip-bg);
+      font-size: 12px;
+      padding: 6px 10px;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 100%;
+    }
+
+    .chip span {
+      opacity: 0.75;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .chip:hover {
+      background: rgba(30, 64, 175, 0.7);
+      border-color: #60a5fa;
+      transform: translateY(-1px);
+    }
+
+    .chip-label {
+      white-space: normal;
+    }
+
+    .footnote {
+      margin-top: auto;
+      font-size: 11px;
+      color: #6b7280;
+      border-top: 1px dashed rgba(55, 65, 81, 0.8);
+      padding-top: 10px;
+    }
+
+    .footnote strong {
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    /* CHAT */
+
+    .chat-panel {
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(circle at top, rgba(30, 64, 175, 0.28), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(8, 47, 73, 0.3), transparent 55%),
+        #020617;
+    }
+
+    .chat-header {
+      padding: 14px 18px;
       display: flex;
       align-items: center;
-      font-size: 12px;
-      color: #9ca3af;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
+    }
+
+    .chat-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .chat-title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .chat-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .chat-header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: #22c55e;
     }
 
     .chat {
       flex: 1;
-      padding: 16px 20px;
+      padding: 16px 18px 10px 18px;
       overflow-y: auto;
-      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      position: relative;
     }
 
-    .message {
-      margin-bottom: 14px;
-      max-width: 80%;
-      padding: 10px 12px;
+    .message-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .avatar.bot {
+      background: radial-gradient(circle at 30% 15%, #38bdf8 0, #1d4ed8 40%, #020617 100%);
+      color: #e5e7eb;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.5);
+    }
+
+    .avatar.user {
+      background: #1f2937;
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .bubble {
+      max-width: 100%;
+      padding: 9px 11px;
       border-radius: 12px;
       font-size: 14px;
-      line-height: 1.4;
+      line-height: 1.5;
       white-space: pre-wrap;
+      position: relative;
+      border: 1px solid transparent;
     }
 
-    .message.user {
-      margin-left: auto;
-      background: #1d4ed8;
-      border-bottom-right-radius: 4px;
-    }
-
-    .message.bot {
-      margin-right: auto;
-      background: #111827;
+    .bubble.bot {
+      background: rgba(15, 23, 42, 0.96);
+      border-color: rgba(31, 41, 55, 0.9);
       border-bottom-left-radius: 4px;
-      border: 1px solid #1f2937;
+    }
+
+    .bubble.user {
+      background: rgba(37, 99, 235, 0.95);
+      border-bottom-right-radius: 4px;
+      margin-left: auto;
     }
 
     .meta {
       font-size: 11px;
-      color: #9ca3af;
+      color: var(--text-muted);
       margin-top: 4px;
     }
 
+    .disclaimer {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    .typing {
+      display: inline-flex;
+      gap: 4px;
+      margin-top: 3px;
+    }
+
+    .typing-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: #9ca3af;
+      opacity: 0.6;
+      animation: bounce 1s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40% { transform: translateY(-3px); opacity: 1; }
+    }
+
     .input-area {
-      border-top: 1px solid #1f2937;
-      padding: 12px 16px;
-      background: #020617;
+      border-top: 1px solid var(--border-subtle);
+      padding: 10px 12px 12px 12px;
+      background: rgba(2, 6, 23, 0.98);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-row {
       display: flex;
       gap: 8px;
       align-items: flex-end;
@@ -118,12 +398,12 @@
       flex: 1;
       resize: none;
       min-height: 40px;
-      max-height: 120px;
-      padding: 8px 10px;
+      max-height: 110px;
+      padding: 9px 10px;
       border-radius: 10px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      color: #e5e7eb;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
       font-size: 14px;
       outline: none;
     }
@@ -136,78 +416,172 @@
       padding: 9px 16px;
       border-radius: 999px;
       border: none;
-      background: #2563eb;
+      background: var(--accent);
       color: white;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
       white-space: nowrap;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.4);
     }
 
     button:disabled {
-      opacity: 0.6;
+      opacity: 0.65;
       cursor: default;
-    }
-
-    .small {
-      font-size: 11px;
-      color: #6b7280;
-      margin-left: 4px;
+      box-shadow: none;
     }
 
     .spinner {
       width: 14px;
       height: 14px;
       border-radius: 999px;
-      border: 2px solid rgba(148, 163, 184, 0.5);
+      border: 2px solid rgba(148, 163, 184, 0.4);
       border-top-color: white;
       animation: spin 0.7s linear infinite;
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
+      to { transform: rotate(360deg); }
+    }
+
+    .input-hints {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .input-hints span {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
       }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <div class="header">
+  <div class="shell">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
       <div>
-        <div class="title">Dental Guidelines Assistant</div>
-        <div class="subtitle">Answers strictly from your uploaded guidelines PDF</div>
+        <div class="brand">
+          <div class="brand-icon">DG</div>
+          <div>
+            <div class="brand-title">Dental Guidelines Assistant</div>
+            <div class="brand-sub">Searches only your uploaded guidelines PDF.</div>
+          </div>
+        </div>
+        <div class="status-pill">
+          <div class="status-dot"></div>
+          <span id="status-text">Backend: Online</span>
+        </div>
       </div>
-      <div class="status">
-        <div class="status-dot"></div>
-        <span id="status-text">Connected to Railway backend</span>
-      </div>
-    </div>
 
-    <div id="chat" class="chat">
-      <div class="message bot">
-        Hi 👋 I’m your dental guidelines assistant.<br><br>
-        Ask me anything that’s covered in your guidelines PDF, and I’ll answer using only that document.
-        <div class="meta">Tip: mention key terms from the headings in your PDF for best results.</div>
-      </div>
-    </div>
-
-    <div class="input-area">
-      <textarea id="question" placeholder="Ask a question about your dental guidelines..."></textarea>
       <div>
-        <button id="send-btn" onclick="sendQuestion()">
-          <span id="btn-label">Send</span>
-          <div id="btn-spinner" class="spinner" style="display:none;"></div>
-        </button>
-        <div class="small">Backend: https://dental-guidelines-bot-production.up.railway.app/ask</div>
+        <div class="section-label">How to use</div>
+        <div style="margin-bottom:6px;">
+          <span class="pill">
+            <span class="pill-dot"></span>
+            Cite the clinical topic &amp; section
+          </span>
+        </div>
+        <ul class="hint-list">
+          <li>Mention keywords from chapter headings or subsections.</li>
+          <li>Ask one focused question at a time for clearer answers.</li>
+          <li>If it says something is not in the book, it genuinely didn’t find it.</li>
+        </ul>
       </div>
-    </div>
+
+      <div>
+        <div class="section-label">Quick prompts</div>
+        <div class="chips">
+          <button class="chip" data-question="What are the recommended first-line analgesics for mild to moderate dental pain according to these guidelines?">
+            <span>Example</span>
+            <span class="chip-label">First-line analgesics for mild dental pain</span>
+          </button>
+          <button class="chip" data-question="According to the guidelines, in which situations should ibuprofen be avoided or used with caution?">
+            <span>Example</span>
+            <span class="chip-label">When to avoid ibuprofen</span>
+          </button>
+          <button class="chip" data-question="Summarise the recommended antibiotic regimen for acute odontogenic infections as described in the guidelines.">
+            <span>Example</span>
+            <span class="chip-label">Antibiotics for acute odontogenic infections</span>
+          </button>
+          <button class="chip" data-question="According to the guidelines, what are the key contraindications or cautions for prescribing paracetamol?">
+            <span>Example</span>
+            <span class="chip-label">Paracetamol cautions/contraindications</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="footnote">
+        <strong>Important:</strong> This assistant is constrained to your Dental Guidelines PDF and <em>cannot</em> give advice outside that document. Always apply your own clinical judgement and local regulations.
+      </div>
+    </aside>
+
+    <!-- CHAT PANEL -->
+    <section class="chat-panel">
+      <header class="chat-header">
+        <div class="chat-header-left">
+          <div class="chat-title">Chat with your guidelines</div>
+          <div class="chat-subtitle">Answers are generated from guideline pages retrieved via embeddings.</div>
+        </div>
+        <div class="chat-header-right">
+          <div class="badge">
+            <div class="badge-dot"></div>
+            <span>Connected</span>
+          </div>
+        </div>
+      </header>
+
+      <main id="chat" class="chat">
+        <div class="message-row">
+          <div class="avatar bot">DG</div>
+          <div class="bubble bot">
+            Hi 👋 I’m your dental guidelines assistant.
+            <br><br>
+            Ask me anything that is covered in your uploaded guidelines book. I will:
+            <ul style="margin-top:6px; padding-left:18px;">
+              <li>Search the most relevant pages from the PDF</li>
+              <li>Answer <strong>only</strong> using that content</li>
+              <li>Tell you which pages I used</li>
+            </ul>
+            <div class="disclaimer">
+              If the guidelines don't clearly cover your question, I’ll say so rather than guessing.
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <div class="input-area">
+        <div class="input-row">
+          <textarea
+            id="question"
+            placeholder="Ask a question about dosing, contraindications, or management as described in your guidelines..."
+          ></textarea>
+          <button id="send-btn" onclick="sendQuestion()">
+            <span id="btn-label">Send</span>
+            <div id="btn-spinner" class="spinner" style="display:none;"></div>
+          </button>
+        </div>
+        <div class="input-hints">
+          <span>Press <strong>Enter</strong> to send &nbsp;·&nbsp; <strong>Shift+Enter</strong> for a new line</span>
+          <span>Powered by your PDF · Endpoint: <code>/ask</code></span>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script>
+    // If index.html is served from the same domain as FastAPI (Railway),
+    // this relative path will work in production and locally with uvicorn.
     const API_URL = "/ask";
 
     const chatEl = document.getElementById("chat");
@@ -216,24 +590,79 @@
     const btnLabel = document.getElementById("btn-label");
     const btnSpinner = document.getElementById("btn-spinner");
 
+    let typingRow = null;
+
     function appendMessage(content, sender, meta) {
-      const msg = document.createElement("div");
-      msg.className = `message ${sender}`;
-      msg.textContent = content;
+      // Row
+      const row = document.createElement("div");
+      row.className = "message-row";
+
+      // Avatar
+      const avatar = document.createElement("div");
+      avatar.className = "avatar " + sender;
+      avatar.textContent = sender === "user" ? "You" : "DG";
+
+      // Bubble
+      const bubble = document.createElement("div");
+      bubble.className = "bubble " + sender;
+      bubble.textContent = content;
 
       if (meta) {
         const metaEl = document.createElement("div");
         metaEl.className = "meta";
         metaEl.textContent = meta;
-        msg.appendChild(metaEl);
+        bubble.appendChild(metaEl);
       }
 
-      chatEl.appendChild(msg);
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+      chatEl.appendChild(row);
       chatEl.scrollTop = chatEl.scrollHeight;
     }
 
-    async function sendQuestion() {
-      const text = qEl.value.trim();
+    function showTyping() {
+      if (typingRow) return;
+      typingRow = document.createElement("div");
+      typingRow.className = "message-row";
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar bot";
+      avatar.textContent = "DG";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble bot";
+
+      const label = document.createElement("div");
+      label.textContent = "Thinking...";
+      label.style.fontSize = "12px";
+      label.style.color = "#9ca3af";
+
+      const typing = document.createElement("div");
+      typing.className = "typing";
+      for (let i = 0; i < 3; i++) {
+        const dot = document.createElement("div");
+        dot.className = "typing-dot";
+        typing.appendChild(dot);
+      }
+
+      bubble.appendChild(label);
+      bubble.appendChild(typing);
+
+      typingRow.appendChild(avatar);
+      typingRow.appendChild(bubble);
+      chatEl.appendChild(typingRow);
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
+
+    function hideTyping() {
+      if (typingRow && typingRow.parentNode) {
+        typingRow.parentNode.removeChild(typingRow);
+      }
+      typingRow = null;
+    }
+
+    async function sendQuestion(prefilled) {
+      const text = typeof prefilled === "string" ? prefilled : qEl.value.trim();
       if (!text) return;
 
       appendMessage(text, "user");
@@ -242,33 +671,35 @@
       sendBtn.disabled = true;
       btnLabel.textContent = "Thinking...";
       btnSpinner.style.display = "inline-block";
+      showTyping();
 
       try {
         const res = await fetch(API_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ question: text })
         });
+
+        hideTyping();
 
         if (!res.ok) {
           const errText = await res.text();
           appendMessage(
-            "Sorry, something went wrong talking to the backend.",
+            "Sorry, something went wrong talking to the guidelines backend.",
             "bot",
             `HTTP ${res.status}: ${errText}`
           );
         } else {
           const data = await res.json();
           const pages = (data.used_pages && data.used_pages.length)
-            ? `Based on pages: ${data.used_pages.join(", ")}`
+            ? `Based on guideline pages: ${data.used_pages.join(", ")}`
             : "No specific pages identified.";
           appendMessage(data.answer, "bot", pages);
         }
       } catch (err) {
+        hideTyping();
         appendMessage(
-          "I couldn’t reach the backend at https://dental-guidelines-bot-production.up.railway.app/ask.",
+          "I couldn’t reach the backend at /ask.",
           "bot",
           String(err)
         );
@@ -278,6 +709,14 @@
         btnSpinner.style.display = "none";
       }
     }
+
+    // Quick prompt chips
+    document.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const q = chip.getAttribute("data-question");
+        sendQuestion(q);
+      });
+    });
 
     // Allow pressing Enter to send (Shift+Enter for newline)
     qEl.addEventListener("keydown", (e) => {

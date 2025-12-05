@@ -34,15 +34,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 24px 16px;
+      padding: 32px 16px;
       color: var(--text-main);
     }
 
     .shell {
       width: 100%;
-      max-width: 920px;
+      max-width: 860px;
       background: var(--card-bg);
-      border-radius: var(--radius-lg);
+      border-radius: 22px;
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
       display: flex;
@@ -50,8 +50,10 @@
       overflow: hidden;
     }
 
+    /* Header */
+
     .header {
-      padding: 16px 20px;
+      padding: 16px 24px 14px 24px;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -63,13 +65,13 @@
     .id-block {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
       background: radial-gradient(circle at 30% 20%, #93c5fd 0, #2563eb 45%, #1d4ed8 75%);
       display: flex;
       align-items: center;
@@ -87,7 +89,7 @@
     }
 
     .title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
       letter-spacing: 0.01em;
     }
@@ -101,7 +103,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 10px;
+      padding: 5px 11px;
       border-radius: 999px;
       border: 1px solid #bbf7d0;
       background: #ecfdf3;
@@ -118,86 +120,57 @@
       box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 2.7fr) minmax(0, 3.3fr);
-      min-height: 460px;
-    }
-
-    @media (max-width: 880px) {
-      .layout {
-        display: flex;
-        flex-direction: column-reverse;
+    @media (max-width: 640px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
-    /* LEFT: Info panel */
+    /* Helper strip */
 
-    .info-panel {
-      padding: 16px 18px;
-      border-right: 1px solid var(--border-subtle);
+    .helper-strip {
+      padding: 14px 24px 10px 24px;
+      border-bottom: 1px solid var(--border-subtle);
       background: #f9fafb;
       display: flex;
       flex-direction: column;
+      gap: 10px;
+    }
+
+    .helper-top {
+      display: flex;
       gap: 12px;
+      flex-wrap: wrap;
+      align-items: flex-start;
     }
 
-    @media (max-width: 880px) {
-      .info-panel {
-        border-right: none;
-        border-top: 1px solid var(--border-subtle);
-      }
+    .how-card {
+      flex: 1.4;
+      min-width: 230px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--text-muted);
     }
 
-    .section-label {
+    .how-title {
       font-size: 11px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #9ca3af;
-    }
-
-    .card-soft {
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      background: #ffffff;
-      padding: 10px 11px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .card-soft p + p {
-      margin-top: 6px;
-    }
-
-    .hint-list {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 6px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .hint-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
       margin-bottom: 4px;
     }
 
-    .hint-bullet {
-      margin-top: 4px;
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: #9ca3af;
-      flex-shrink: 0;
-    }
-
-    .chips {
+    .examples {
+      flex: 1;
+      min-width: 230px;
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
     }
 
     .chip {
@@ -212,6 +185,12 @@
       align-items: center;
       gap: 6px;
       transition: background 0.12s ease, border-color 0.12s ease, transform 0.05s ease;
+      max-width: 100%;
+      text-align: left;
+    }
+
+    .chip span.label {
+      font-weight: 500;
     }
 
     .chip span.tag {
@@ -227,30 +206,39 @@
       transform: translateY(-1px);
     }
 
-    .footnote {
-      margin-top: auto;
+    .helper-bottom {
       font-size: 11px;
       color: #9ca3af;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border-subtle);
     }
 
-    .footnote strong {
+    .helper-bottom strong {
       color: #4b5563;
       font-weight: 500;
     }
 
-    /* RIGHT: Chat */
+    /* Chat shell */
 
-    .chat-panel {
+    .content {
+      padding: 14px 18px 16px 18px;
       display: flex;
       flex-direction: column;
+      gap: 10px;
       background: #ffffff;
+    }
+
+    .chat-card {
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      max-height: 70vh;
+      min-height: 380px;
     }
 
     .chat {
       flex: 1;
-      padding: 16px 18px 10px 18px;
+      padding: 14px 16px 10px 16px;
       overflow-y: auto;
     }
 
@@ -258,6 +246,7 @@
       display: flex;
       gap: 8px;
       margin-bottom: 12px;
+      align-items: flex-start;
     }
 
     .avatar {
@@ -293,11 +282,12 @@
       position: relative;
       border: 1px solid transparent;
       background: #f3f4f6;
+      text-align: left;
     }
 
     .bubble.bot {
       border-color: #e5e7eb;
-      background: #f9fafb;
+      background: #ffffff;
       border-bottom-left-radius: 4px;
     }
 
@@ -309,22 +299,25 @@
       border-bottom-right-radius: 4px;
     }
 
+    .bubble ul {
+      margin-top: 6px;
+      padding-left: 18px;
+    }
+
+    .bubble li {
+      margin-bottom: 4px;
+    }
+
     .meta {
       font-size: 11px;
       color: #6b7280;
       margin-top: 4px;
     }
 
-    .disclaimer {
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 6px;
-    }
-
     .typing {
       display: inline-flex;
       gap: 4px;
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     .typing-dot {
@@ -336,13 +329,8 @@
       animation: bounce 1s infinite ease-in-out;
     }
 
-    .typing-dot:nth-child(2) {
-      animation-delay: 0.15s;
-    }
-
-    .typing-dot:nth-child(3) {
-      animation-delay: 0.3s;
-    }
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
 
     @keyframes bounce {
       0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
@@ -351,7 +339,7 @@
 
     .input-area {
       border-top: 1px solid var(--border-subtle);
-      padding: 10px 14px 12px 14px;
+      padding: 10px 12px 11px 12px;
       background: #f9fafb;
       display: flex;
       flex-direction: column;
@@ -369,7 +357,7 @@
       resize: none;
       min-height: 42px;
       max-height: 120px;
-      padding: 9px 10px;
+      padding: 9px 11px;
       border-radius: 999px;
       border: 1px solid var(--border-strong);
       background: #ffffff;
@@ -386,7 +374,6 @@
     textarea:focus {
       border-color: #60a5fa;
       box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
-      background: #ffffff;
     }
 
     button {
@@ -440,6 +427,17 @@
       padding: 1px 4px;
       border-radius: 4px;
     }
+
+    .disclaimer {
+      font-size: 11px;
+      color: #9ca3af;
+      padding-left: 3px;
+    }
+
+    .disclaimer strong {
+      color: #4b5563;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -449,7 +447,7 @@
         <div class="logo">TG</div>
         <div class="title-group">
           <div class="title">Therapeutic Guidelines: Oral &amp; Dental Assistant</div>
-          <div class="subtitle">Answers constrained to the 2025 Oral &amp; Dental guidelines.</div>
+          <div class="subtitle">Answers constrained to the 2025 Oral &amp; Dental guidelines PDF.</div>
         </div>
       </div>
       <div class="status-pill">
@@ -458,85 +456,67 @@
       </div>
     </header>
 
-    <div class="layout">
-      <!-- Info / hints -->
-      <aside class="info-panel">
-        <div>
-          <div class="section-label">How to ask</div>
-          <div class="card-soft">
-            <p>Formulate questions the way you would in clinic, but reference the guideline topic.</p>
-            <p>For example, include terms like <em>postoperative pain</em>, <em>acute odontogenic infection</em>, or <em>infective endocarditis prophylaxis</em>.</p>
+    <!-- Helper strip -->
+    <section class="helper-strip">
+      <div class="helper-top">
+        <div class="how-card">
+          <div class="how-title">How to ask</div>
+          <div>
+            Formulate questions the way you would in clinic, but anchor them to the guideline topic.
+            For example, include terms such as <em>postoperative pain</em>, <em>acute odontogenic infection</em>, or
+            <em>infective endocarditis prophylaxis</em>.
           </div>
         </div>
-
-        <div>
-          <div class="section-label">Suggestions</div>
-          <div class="chips">
-            <button class="chip" data-question="According to the Oral and Dental Therapeutic Guidelines, what are the recommended first-line analgesics for mild to moderate postoperative dental pain in an otherwise healthy adult?">
-              <span class="tag">Example</span>
-              <span>First-line analgesia for uncomplicated postoperative pain</span>
-            </button>
-            <button class="chip" data-question="Within the Oral and Dental Therapeutic Guidelines, in which situations should ibuprofen be avoided or used with caution?">
-              <span class="tag">Example</span>
-              <span>When to avoid or use caution with ibuprofen</span>
-            </button>
-            <button class="chip" data-question="Summarise the recommended antibiotic regimen for an acute odontogenic infection, as outlined in the Oral and Dental guidelines.">
-              <span class="tag">Example</span>
-              <span>Antibiotic regimen for acute odontogenic infection</span>
-            </button>
-          </div>
+        <div class="examples">
+          <button class="chip" data-question="According to the Oral and Dental Therapeutic Guidelines, what are the recommended first-line analgesics for mild to moderate postoperative dental pain in an otherwise healthy adult?">
+            <span class="tag">Example</span>
+            <span class="label">First-line analgesia for uncomplicated postoperative pain</span>
+          </button>
+          <button class="chip" data-question="Within the Oral and Dental Therapeutic Guidelines, in which situations should ibuprofen be avoided or used with caution?">
+            <span class="tag">Example</span>
+            <span class="label">When to avoid or use caution with ibuprofen</span>
+          </button>
+          <button class="chip" data-question="Summarise the recommended antibiotic regimen for an acute odontogenic infection, as outlined in the Oral and Dental guidelines.">
+            <span class="tag">Example</span>
+            <span class="label">Antibiotic regimen for acute odontogenic infection</span>
+          </button>
         </div>
+      </div>
+      <div class="helper-bottom">
+        <strong>Important:</strong> The assistant stays inside the Oral &amp; Dental guidelines. If the document does not clearly
+        address your question, it will say so rather than guess.
+      </div>
+    </section>
 
-        <div>
-          <div class="section-label">Behaviour</div>
-          <ul class="hint-list">
-            <li>
-              <div class="hint-bullet"></div>
-              <div>The assistant will only draw on the uploaded Oral &amp; Dental guidelines. If the answer is not clearly present, it will say so.</div>
-            </li>
-            <li>
-              <div class="hint-bullet"></div>
-              <div>Responses are intended as an aid to guideline navigation, not a substitute for reading the full recommendations.</div>
-            </li>
-            <li>
-              <div class="hint-bullet"></div>
-              <div>Always apply your own clinical judgement, local protocols, and regulatory requirements.</div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="footnote">
-          <strong>Disclaimer:</strong> This tool reflects only the content of the loaded Oral &amp; Dental guidelines PDF. It does not provide personalised medical advice or replace clinician responsibility.
-        </div>
-      </aside>
-
-      <!-- Chat -->
-      <section class="chat-panel">
-        <main id="chat" class="chat">
+    <!-- Chat + input -->
+    <main class="content">
+      <section class="chat-card">
+        <div id="chat" class="chat">
           <div class="message-row">
             <div class="avatar bot">TG</div>
             <div class="bubble bot">
-              Welcome. 👋
+              Welcome.
               <br><br>
-              I am an assistant constrained to the content of the <strong>Therapeutic Guidelines: Oral &amp; Dental (2025 update)</strong> PDF you have provided.
+              I am an assistant constrained to the content of your copy of
+              <strong>Therapeutic Guidelines: Oral &amp; Dental (2025 update)</strong>.
               I will:
-              <ul style="margin-top:6px; padding-left:18px;">
+              <ul>
                 <li>Retrieve the most relevant guideline pages for your query</li>
                 <li>Answer using only those passages</li>
                 <li>Indicate which pages were used</li>
               </ul>
-              <div class="disclaimer">
-                If the guidelines do not clearly address your question, I will state that this is not specified rather than inferring or extrapolating.
+              <div class="meta">
+                If the guidelines do not clearly address a question, I will state that this is not specified rather than inferring or extrapolating.
               </div>
             </div>
           </div>
-        </main>
+        </div>
 
         <div class="input-area">
           <div class="input-row">
             <textarea
               id="question"
-              placeholder="Ask a question about dosing, indications, contraindications, or management as described in the Oral &amp; Dental guidelines..."
+              placeholder="Ask about dosing, indications, cautions, or management as described in the Oral &amp; Dental guidelines…"
             ></textarea>
             <button id="send-btn" onclick="sendQuestion()">
               <span id="btn-label">Send</span>
@@ -549,12 +529,15 @@
           </div>
         </div>
       </section>
-    </div>
+
+      <p class="disclaimer">
+        <strong>Disclaimer:</strong> This tool reflects only the content of the loaded Oral &amp; Dental guidelines PDF and does not
+        provide personalised medical advice or replace clinician responsibility.
+      </p>
+    </main>
   </div>
 
   <script>
-    // Because index.html is served from the same host as FastAPI on Railway,
-    // this relative path will work in both local and production environments.
     const API_URL = "/ask";
 
     const chatEl = document.getElementById("chat");
@@ -680,7 +663,6 @@
       }
     }
 
-    // Quick suggestion chips
     document.querySelectorAll(".chip").forEach(chip => {
       chip.addEventListener("click", () => {
         const q = chip.getAttribute("data-question");
@@ -688,7 +670,6 @@
       });
     });
 
-    // Enter to send, Shift+Enter for new line
     qEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();

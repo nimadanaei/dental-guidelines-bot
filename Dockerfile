@@ -4,15 +4,20 @@ FROM python:3.11-slim
 # Work inside /app
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies directly (no requirements.txt needed)
+RUN pip install --no-cache-dir \
+    fastapi \
+    "uvicorn[standard]" \
+    numpy \
+    pydantic \
+    pypdf \
+    "openai>=1.0.0"
 
-# Copy the rest of the code
+# Copy all project files into the image
 COPY . .
 
-# Railway will inject PORT, but default to 8000 if missing
+# Expose the port Railway will hit
 ENV PORT=8000
 
-# Start FastAPI with Uvicorn
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Start the FastAPI app with uvicorn
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

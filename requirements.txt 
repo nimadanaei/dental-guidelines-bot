@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+numpy
+pydantic
+pypdf
+openai>=1.0.0

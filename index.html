@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dental Guidelines Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 900px;
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid #1f2937;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #1f2937;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #0b1120, #020617);
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+      margin-right: 6px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .chat {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+    }
+
+    .message {
+      margin-bottom: 14px;
+      max-width: 80%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+
+    .message.user {
+      margin-left: auto;
+      background: #1d4ed8;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message.bot {
+      margin-right: auto;
+      background: #111827;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #1f2937;
+    }
+
+    .meta {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .input-area {
+      border-top: 1px solid #1f2937;
+      padding: 12px 16px;
+      background: #020617;
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      min-height: 40px;
+      max-height: 120px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 14px;
+      outline: none;
+    }
+
+    textarea::placeholder {
+      color: #6b7280;
+    }
+
+    button {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .small {
+      font-size: 11px;
+      color: #6b7280;
+      margin-left: 4px;
+    }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid rgba(148, 163, 184, 0.5);
+      border-top-color: white;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <div>
+        <div class="title">Dental Guidelines Assistant</div>
+        <div class="subtitle">Answers strictly from your uploaded guidelines PDF</div>
+      </div>
+      <div class="status">
+        <div class="status-dot"></div>
+        <span id="status-text">Connected to local server</span>
+      </div>
+    </div>
+
+    <div id="chat" class="chat">
+      <div class="message bot">
+        Hi 👋 I’m your dental guidelines assistant.<br><br>
+        Ask me anything that’s covered in your guidelines PDF, and I’ll answer using only that document.
+        <div class="meta">Tip: mention key terms from the headings in your PDF for best results.</div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <textarea id="question" placeholder="Ask a question about your dental guidelines..."></textarea>
+      <div>
+        <button id="send-btn" onclick="sendQuestion()">
+          <span id="btn-label">Send</span>
+          <div id="btn-spinner" class="spinner" style="display:none;"></div>
+        </button>
+        <div class="small">Backend: http://127.0.0.1:8000/ask</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "/ask";
+
+    const chatEl = document.getElementById("chat");
+    const qEl = document.getElementById("question");
+    const sendBtn = document.getElementById("send-btn");
+    const btnLabel = document.getElementById("btn-label");
+    const btnSpinner = document.getElementById("btn-spinner");
+
+    function appendMessage(content, sender, meta) {
+      const msg = document.createElement("div");
+      msg.className = `message ${sender}`;
+      msg.textContent = content;
+
+      if (meta) {
+        const metaEl = document.createElement("div");
+        metaEl.className = "meta";
+        metaEl.textContent = meta;
+        msg.appendChild(metaEl);
+      }
+
+      chatEl.appendChild(msg);
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
+
+    async function sendQuestion() {
+      const text = qEl.value.trim();
+      if (!text) return;
+
+      appendMessage(text, "user");
+      qEl.value = "";
+
+      sendBtn.disabled = true;
+      btnLabel.textContent = "Thinking...";
+      btnSpinner.style.display = "inline-block";
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ question: text })
+        });
+
+        if (!res.ok) {
+          const errText = await res.text();
+          appendMessage(
+            "Sorry, something went wrong talking to the backend.",
+            "bot",
+            `HTTP ${res.status}: ${errText}`
+          );
+        } else {
+          const data = await res.json();
+          const pages = (data.used_pages && data.used_pages.length)
+            ? `Based on pages: ${data.used_pages.join(", ")}`
+            : "No specific pages identified.";
+          appendMessage(data.answer, "bot", pages);
+        }
+      } catch (err) {
+        appendMessage(
+          "I couldn’t reach the backend at http://127.0.0.1:8000/ask.",
+          "bot",
+          String(err)
+        );
+      } finally {
+        sendBtn.disabled = false;
+        btnLabel.textContent = "Send";
+        btnSpinner.style.display = "none";
+      }
+    }
+
+    // Allow pressing Enter to send (Shift+Enter for newline)
+    qEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendQuestion();
+      }
+    });
+  </script>
+</body>
+</html>

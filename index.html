@@ -3,705 +3,632 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Therapeutic Guidelines: Oral & Dental Assistant</title>
+  <title>Oral &amp; Dental Guidelines Assistant</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
-      --bg: #f3f4f6;
-      --card-bg: #ffffff;
-      --border-subtle: #e5e7eb;
-      --border-strong: #d1d5db;
-      --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.08);
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
-      --radius-lg: 18px;
+
+      /* Paper + ink palette — a clinical document, not an app */
+      --paper: #fcfcfa;
+      --paper-raised: #ffffff;
+      --ink: #1a1d1c;
+      --ink-soft: #4a514e;
+      --ink-faint: #8a918d;
+      --rule: #e4e6e2;
+      --rule-strong: #d2d5d0;
+
+      /* One quiet accent: surgical teal-slate */
+      --accent: #2f6f6a;
+      --accent-deep: #245450;
+      --accent-wash: #eef4f3;
+      --accent-line: #cfe0dd;
+
+      --warn-wash: #fbf6ec;
+      --warn-rule: #e7d9bd;
+      --warn-ink: #7a5d2e;
+
+      --serif: "Newsreader", Georgia, "Times New Roman", serif;
+      --sans: "Inter", system-ui, -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", -apple-system, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
     body {
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top, rgba(191, 219, 254, 0.6) 0, transparent 55%),
-        radial-gradient(circle at bottom, #f3f4f6 0, #e5e7eb 60%);
+      background: var(--paper);
+      /* faint paper tooth */
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(47, 111, 106, 0.018) 27px, rgba(47, 111, 106, 0.018) 28px);
+      color: var(--ink);
+      font-family: var(--sans);
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 32px 16px;
-      color: var(--text-main);
+      padding: 40px 20px;
+      line-height: 1.5;
     }
 
-    .shell {
+    .sheet {
       width: 100%;
-      max-width: 1120px;
-      /* wider so the chat + chips don’t feel cramped */
-      background: var(--card-bg);
-      border-radius: 22px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
+      max-width: 860px;
+      background: var(--paper-raised);
+      border: 1px solid var(--rule-strong);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      min-height: calc(100vh - 80px);
     }
 
-    /* Header */
-
-    .header {
-      padding: 16px 24px 14px 24px;
-      border-bottom: 1px solid var(--border-subtle);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: linear-gradient(180deg, #f9fafb, #f3f4f6);
+    /* ---------- Masthead ---------- */
+    .masthead {
+      padding: 26px 36px 20px;
+      border-bottom: 2px solid var(--ink);
     }
-
-    .id-block {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 30% 20%, #93c5fd 0, #2563eb 45%, #1d4ed8 75%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 16px;
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.06);
-    }
-
-    .title-group {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .title {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-
-    .subtitle {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 11px;
-      border-radius: 999px;
-      border: 1px solid #bbf7d0;
-      background: #ecfdf3;
-      font-size: 11px;
-      color: #166534;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
-    }
-
-    @media (max-width: 640px) {
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    /* Helper strip */
-
-    .helper-strip {
-      padding: 14px 24px 10px 24px;
-      border-bottom: 1px solid var(--border-subtle);
-      background: #f9fafb;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .helper-top {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: flex-start;
-    }
-
-    .how-card {
-      flex: 1.4;
-      min-width: 230px;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      background: #ffffff;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .how-title {
-      font-size: 11px;
-      font-weight: 600;
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #9ca3af;
-      margin-bottom: 4px;
-    }
-
-    .examples {
-      flex: 1;
-      min-width: 230px;
+      color: var(--accent);
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
     }
-
-    .chip {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: #ffffff;
-      font-size: 12px;
-      padding: 6px 10px;
-      cursor: pointer;
-      color: #374151;
+    .eyebrow::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .masthead h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(25px, 4vw, 34px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    .masthead .sub {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      max-width: 56ch;
+    }
+    .masthead .meta-row {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-faint);
+      letter-spacing: 0.02em;
+    }
+    .meta-row .dot {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: background 0.12s ease, border-color 0.12s ease, transform 0.05s ease;
-      max-width: 100%;
-      text-align: left;
+      gap: 7px;
     }
+    .meta-row .led {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--ink-faint);
+      box-shadow: 0 0 0 3px rgba(138,145,141,.14);
+      transition: background .3s, box-shadow .3s;
+    }
+    .meta-row.online .led { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+    .meta-row.offline .led { background: #b4543f; box-shadow: 0 0 0 3px #f6e9e4; }
 
-    .chip span.label {
+    /* ---------- Advisory ---------- */
+    .advisory {
+      padding: 12px 36px;
+      background: var(--warn-wash);
+      border-bottom: 1px solid var(--warn-rule);
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--warn-ink);
+      display: flex;
+      gap: 11px;
+    }
+    .advisory .mark {
+      font-family: var(--mono);
       font-weight: 500;
-    }
-
-    .chip span.tag {
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       font-size: 10px;
-      letter-spacing: 0.08em;
-      color: #9ca3af;
+      padding-top: 2px;
+      white-space: nowrap;
     }
+    .advisory strong { font-weight: 600; color: #5f4720; }
 
-    .chip:hover {
-      background: #eff6ff;
-      border-color: #93c5fd;
-      transform: translateY(-1px);
-    }
-
-    .helper-bottom {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    .helper-bottom strong {
-      color: #4b5563;
-      font-weight: 500;
-    }
-
-    /* Chat shell */
-
-    .content {
-      padding: 14px 18px 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: #ffffff;
-    }
-
-    .chat-card {
-      border-radius: 16px;
-      border: 1px solid var(--border-subtle);
-      background: #fafafa;
-      display: flex;
-      flex-direction: column;
-      max-height: 70vh;
-      min-height: 380px;
-    }
-
-    .chat {
+    /* ---------- Transcript ---------- */
+    .transcript {
       flex: 1;
-      padding: 14px 16px 10px 16px;
       overflow-y: auto;
+      padding: 8px 36px 4px;
     }
 
-    .message-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-      align-items: flex-start;
-    }
+    .entry { padding: 18px 0; }
+    .entry:first-child { padding-top: 22px; }
 
-    .avatar {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      flex-shrink: 0;
+    /* sender row: initial mark + label, the grammar of a chat turn */
+    .entry .role {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
+      gap: 9px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 10px;
+    }
+    .entry .mark {
+      width: 24px; height: 24px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--sans); font-weight: 600; font-size: 9px;
+      letter-spacing: 0; border-radius: 50%;
+      border: 1px solid var(--rule-strong);
+      color: var(--ink-soft);
+      background: var(--paper);
+      flex-shrink: 0;
     }
 
-    .avatar.bot {
-      background: #e5edff;
-      color: #1d4ed8;
-      border: 1px solid #c7d2fe;
-    }
-
-    .avatar.user {
-      background: #111827;
-      color: #f9fafb;
-    }
-
-    .bubble {
-      max-width: 100%;
-      padding: 9px 11px;
-      border-radius: 12px;
-      font-size: 14px;
+    /* ---- User's turn: aligned right, soft accent card ---- */
+    .entry.q { display: flex; flex-direction: column; align-items: flex-end; }
+    .entry.q .role { flex-direction: row-reverse; color: var(--accent); }
+    .entry.q .role span:not(.mark) { display: none; }
+    .entry.q .mark { border-color: var(--accent-line); color: var(--accent-deep); background: var(--accent-wash); }
+    .entry.q .body {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 14.5px;
       line-height: 1.5;
-      white-space: pre-wrap;
-      position: relative;
-      border: 1px solid transparent;
-      background: #f3f4f6;
+      color: var(--ink);
+      background: var(--accent-wash);
+      border: 1px solid var(--accent-line);
+      border-radius: 12px 12px 3px 12px;
+      padding: 11px 14px;
+      max-width: 78%;
       text-align: left;
     }
 
-    .bubble.bot {
-      border-color: #e5e7eb;
-      background: #ffffff;
-      border-bottom-left-radius: 4px;
+    /* ---- Assistant's turn: the monograph, serif + left rule ---- */
+    .entry.a .role { color: var(--accent); }
+    .entry.a .mark { border-color: var(--accent); color: var(--paper-raised); background: var(--accent); }
+    .entry.a .body {
+      font-family: var(--serif);
+      font-size: 16.5px;
+      line-height: 1.62;
+      color: var(--ink);
+      white-space: pre-wrap;
+      padding-left: 16px;
+      border-left: 2px solid var(--accent-line);
+      max-width: 92%;
     }
+    .entry.a .body ul { padding-left: 22px; margin: 8px 0; }
+    .entry.a .body li { margin-bottom: 5px; }
 
-    .bubble.user {
-      margin-left: auto;
-      background: #2563eb;
-      color: #eff6ff;
-      border-color: #1d4ed8;
-      border-bottom-right-radius: 4px;
+    .opening .body {
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      padding-left: 16px;
+      border-left: 2px solid var(--accent-line);
+      max-width: 92%;
     }
+    .opening .body strong { color: var(--ink); font-weight: 600; }
 
-    .bubble ul {
-      margin-top: 6px;
-      padding-left: 18px;
-    }
-
-    .bubble li {
-      margin-bottom: 4px;
-    }
-
-    .meta {
+    /* ---------- Citations ---------- */
+    .cites { margin-top: 16px; }
+    .cites-bar {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-family: var(--mono);
       font-size: 11px;
-      color: #6b7280;
-      margin-top: 4px;
+      color: var(--ink-faint);
+      letter-spacing: 0.02em;
+    }
+    .cites-pages { color: var(--accent-deep); }
+    .cites-toggle {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .cites-toggle:hover { color: var(--accent-deep); text-decoration: underline; }
+
+    .cites-list { display: none; margin-top: 12px; flex-direction: column; gap: 0; }
+    .cites-list.open { display: flex; }
+    .source {
+      padding: 11px 0;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 14px;
+    }
+    .source .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent-deep);
+    }
+    .source .tag .sim { display: block; color: var(--ink-faint); margin-top: 3px; font-size: 10px; }
+    .source .excerpt {
+      font-family: var(--serif);
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--ink-soft);
     }
 
-    .typing {
-      display: inline-flex;
-      gap: 4px;
-      margin-top: 4px;
+    .thinking { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
+    .thinking .pulse {
+      display: inline-block; width: 6px; height: 14px;
+      background: var(--accent); margin-left: 3px; vertical-align: middle;
+      animation: blink 1.1s step-end infinite;
     }
+    @keyframes blink { 50% { opacity: 0; } }
 
-    .typing-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: #9ca3af;
-      opacity: 0.6;
-      animation: bounce 1s infinite ease-in-out;
+    .caret { display: inline-block; width: 7px; height: 1.05em; background: var(--accent);
+             vertical-align: text-bottom; margin-left: 1px; animation: blink 1.1s step-end infinite; }
+
+    /* ---------- Prompts (example queries) ---------- */
+    .composer { border-top: 2px solid var(--ink); padding: 18px 36px 24px; background: var(--paper-raised); }
+    .prompt-label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px;
     }
-
-    .typing-dot:nth-child(2) {
-      animation-delay: 0.15s;
+    .prompts { display: flex; flex-direction: column; border-top: 1px solid var(--rule); margin-bottom: 18px; }
+    .prompt {
+      text-align: left;
+      font-family: var(--serif);
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 11px 0 11px 22px;
+      cursor: pointer;
+      position: relative;
+      transition: color .15s, padding .15s;
     }
-
-    .typing-dot:nth-child(3) {
-      animation-delay: 0.3s;
+    .prompt::before {
+      content: "→";
+      position: absolute; left: 2px; top: 11px;
+      font-family: var(--mono);
+      color: var(--accent);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity .15s, transform .15s;
     }
+    .prompt:hover { color: var(--ink); padding-left: 26px; }
+    .prompt:hover::before { opacity: 1; transform: translateX(0); }
 
-    @keyframes bounce {
-
-      0%,
-      80%,
-      100% {
-        transform: translateY(0);
-        opacity: 0.4;
-      }
-
-      40% {
-        transform: translateY(-3px);
-        opacity: 1;
-      }
-    }
-
-    .input-area {
-      border-top: 1px solid var(--border-subtle);
-      padding: 10px 12px 11px 12px;
-      background: #f9fafb;
+    .field {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 8px;
       align-items: flex-end;
+      gap: 12px;
+      border: 1px solid var(--rule-strong);
+      background: var(--paper);
+      padding: 10px 10px 10px 14px;
+      transition: border-color .15s, box-shadow .15s;
     }
-
+    .field:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
     textarea {
       flex: 1;
       resize: none;
-      min-height: 42px;
-      max-height: 120px;
-      padding: 9px 11px;
-      border-radius: 999px;
-      border: 1px solid var(--border-strong);
-      background: #ffffff;
-      color: var(--text-main);
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    textarea::placeholder {
-      color: #9ca3af;
-    }
-
-    textarea:focus {
-      border-color: #60a5fa;
-      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
-    }
-
-    button {
-      padding: 9px 18px;
-      border-radius: 999px;
+      min-height: 26px;
+      max-height: 140px;
       border: none;
+      background: none;
+      outline: none;
+      font-family: var(--sans);
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    textarea::placeholder { color: var(--ink-faint); }
+    .send {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--paper-raised);
       background: var(--accent);
-      color: white;
-      font-size: 14px;
-      font-weight: 500;
+      border: none;
+      padding: 9px 16px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      transition: background .15s;
       white-space: nowrap;
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.25);
+    }
+    .send:hover { background: var(--accent-deep); }
+    .send:disabled { background: var(--ink-faint); cursor: default; }
+    .send .spin {
+      width: 11px; height: 11px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,.45); border-top-color: #fff;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .composer-foot {
+      display: flex; justify-content: space-between; gap: 12px;
+      margin-top: 9px;
+      font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint);
+      letter-spacing: 0.02em;
+    }
+    .composer-foot .count.over { color: #b4543f; }
+    .composer-foot kbd {
+      font-family: var(--mono); background: var(--accent-wash);
+      color: var(--accent-deep); padding: 1px 5px; border-radius: 2px; font-size: 10px;
     }
 
-    button:disabled {
-      opacity: 0.6;
-      cursor: default;
-      box-shadow: none;
-    }
-
-    .spinner {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      border: 2px solid rgba(148, 163, 184, 0.5);
-      border-top-color: white;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .input-hints {
-      display: flex;
-      justify-content: space-between;
+    .colophon {
+      padding: 14px 36px 18px;
       font-size: 11px;
-      color: #9ca3af;
-      flex-wrap: wrap;
-      gap: 4px;
+      line-height: 1.5;
+      color: var(--ink-faint);
+      border-top: 1px solid var(--rule);
+    }
+    .colophon strong { color: var(--ink-soft); font-weight: 500; }
+
+    @media (max-width: 600px) {
+      body { padding: 0; }
+      .sheet { border: none; min-height: 100vh; }
+      .masthead, .advisory, .transcript, .composer, .colophon { padding-left: 20px; padding-right: 20px; }
+      .source { grid-template-columns: 64px 1fr; gap: 10px; }
     }
 
-    .input-hints code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      background: #e5e7eb;
-      padding: 1px 4px;
-      border-radius: 4px;
-    }
-
-    .disclaimer {
-      font-size: 11px;
-      color: #9ca3af;
-      padding-left: 3px;
-    }
-
-    .disclaimer strong {
-      color: #4b5563;
-      font-weight: 500;
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 
 <body>
-  <div class="shell">
-    <header class="header">
-      <div class="id-block">
-        <div class="logo">TG</div>
-        <div class="title-group">
-          <div class="title">Therapeutic Guidelines: Oral and Dental (Version 4) Assistant</div>
-          <div class="subtitle">
-            Answers constrained to your copy of Therapeutic Guidelines: Oral and Dental, Version 4 (2025 update).
-          </div>
-
-        </div>
-        <div class="status-pill">
-          <div class="status-dot"></div>
-          <span id="status-text">Connected to guidelines backend</span>
-        </div>
+  <main class="sheet">
+    <header class="masthead">
+      <div class="eyebrow">Therapeutic Reference · Ask &amp; Cite</div>
+      <h1>Oral &amp; Dental Guidelines Assistant</h1>
+      <p class="sub">Ask a clinical question and get an answer drawn only from the loaded copy of the
+        Oral &amp; Dental therapeutic guidelines, with the source pages cited.</p>
+      <div class="meta-row" id="meta-row">
+        <span class="dot"><span class="led"></span><span id="status-text">Connecting to reference…</span></span>
+        <span id="version-tag"></span>
+        <span id="corpus-tag"></span>
+      </div>
     </header>
 
-    <!-- Helper strip -->
-    <section class="helper-strip">
-      <div class="helper-top">
-        <div class="how-card">
-          <div class="how-title">How to ask</div>
-          <div>
-            Formulate questions the way you would in clinic, but anchor them to the guideline topic.
-            For example, include terms such as <em>postoperative pain</em>, <em>acute odontogenic infection</em>, or
-            <em>infective endocarditis prophylaxis</em>.
-          </div>
-        </div>
-        <div class="examples">
-          <button class="chip"
-            data-question="According to the Oral and Dental Therapeutic Guidelines, what are the recommended first-line analgesics for mild to moderate postoperative dental pain in an otherwise healthy adult?">
-            <span class="tag">Example</span>
-            <span class="label">First-line analgesia for uncomplicated postoperative pain</span>
-          </button>
-          <button class="chip"
-            data-question="Within the Oral and Dental Therapeutic Guidelines, in which situations should ibuprofen be avoided or used with caution?">
-            <span class="tag">Example</span>
-            <span class="label">When to avoid or use caution with ibuprofen</span>
-          </button>
-          <button class="chip"
-            data-question="Summarise the recommended antibiotic regimen for an acute odontogenic infection, as outlined in the Oral and Dental guidelines.">
-            <span class="tag">Example</span>
-            <span class="label">Antibiotic regimen for acute odontogenic infection</span>
-          </button>
-        </div>
-      </div>
-      <div class="helper-bottom">
-        <strong>Important:</strong> The assistant stays inside the Oral &amp; Dental guidelines. If the document does
-        not clearly
-        address your question, it will say so rather than guess.
+    <div class="advisory">
+      <span class="mark">Caution</span>
+      <span>A study aid that summarises one reference. It can be incomplete or wrong and does
+        <strong>not</strong> replace the published guideline, product information, or clinical judgement.
+        <strong>Verify every dose and regimen against the source before acting on it.</strong></span>
+    </div>
+
+    <section class="transcript" id="transcript">
+      <div class="entry opening a">
+        <div class="role"><span class="mark">TG</span>Assistant</div>
+        <div class="body">Ask me a clinical question about the Oral &amp; Dental guidelines — dosing, indications, cautions, or management. I answer only from the loaded excerpts and cite the pages I used. Where the guideline doesn't clearly address something, I'll say so rather than guess.</div>
       </div>
     </section>
 
-    <!-- Chat + input -->
-    <main class="content">
-      <section class="chat-card">
-        <div id="chat" class="chat">
-          <div class="message-row">
-            <div class="avatar bot">TG</div>
-            <div class="bubble bot">
-              Welcome.
-              <br><br>
-              I am an assistant constrained to the content of your copy of
-              <strong>Therapeutic Guidelines: Oral and Dental, Version 4 (2025 update)</strong>.
+    <footer class="composer">
+      <div class="prompt-label">Try a query</div>
+      <div class="prompts" id="prompts">
+        <button class="prompt" data-q="What are the recommended first-line analgesics for mild to moderate postoperative dental pain in an otherwise healthy adult?">First-line analgesia for postoperative dental pain</button>
+        <button class="prompt" data-q="In which situations should ibuprofen be avoided or used with caution?">When to avoid or use caution with ibuprofen</button>
+        <button class="prompt" data-q="Summarise the recommended antibiotic regimen for an acute odontogenic infection.">Antibiotic regimen for an acute odontogenic infection</button>
+      </div>
 
-              I will:
-              <ul>
-                <li>Retrieve the most relevant guideline pages for your query</li>
-                <li>Answer using only those passages</li>
-                <li>Indicate which pages were used</li>
-              </ul>
-              <div class="meta">
-                If the guidelines do not clearly address a question, I will state that this is not specified rather than
-                inferring or extrapolating.
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="field">
+        <textarea id="q" maxlength="1000" rows="1"
+          placeholder="Ask about dosing, indications, cautions, or management as described in the guidelines…"></textarea>
+        <button class="send" id="send" onclick="ask()">
+          <span id="send-label">Ask</span>
+          <span id="send-spin" class="spin" style="display:none;"></span>
+        </button>
+      </div>
+      <div class="composer-foot">
+        <span><kbd>Enter</kbd> to ask · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line</span>
+        <span class="count" id="count">0 / 1000</span>
+      </div>
+    </footer>
 
-        <div class="input-area">
-          <div class="input-row">
-            <textarea id="question"
-              placeholder="Ask about dosing, indications, cautions, or management as described in the Oral &amp; Dental guidelines…"></textarea>
-            <button id="send-btn" onclick="sendQuestion()">
-              <span id="btn-label">Send</span>
-              <div id="btn-spinner" class="spinner" style="display:none;"></div>
-            </button>
-          </div>
-          <div class="input-hints">
-            <span>Press <strong>Enter</strong> to send · <strong>Shift+Enter</strong> for a new line</span>
-            <span>Backend endpoint: <code>/ask</code></span>
-          </div>
-        </div>
-      </section>
-
-      <p class="disclaimer">
-        <strong>Disclaimer:</strong> This tool reflects only the content of the loaded Oral &amp; Dental guidelines PDF
-        and does not
-        provide personalised medical advice or replace clinician responsibility.
-      </p>
-    </main>
-  </div>
+    <div class="colophon">
+      <strong>Disclaimer.</strong> Reflects only the content of the loaded guideline reference. Not personalised
+      medical advice and not a substitute for clinician responsibility.
+    </div>
+  </main>
 
   <script>
-    const API_URL = "/ask";
+    const STREAM_URL = "/ask/stream";
+    const HEALTH_URL = "/health";
 
-    const chatEl = document.getElementById("chat");
-    const qEl = document.getElementById("question");
-    const sendBtn = document.getElementById("send-btn");
-    const btnLabel = document.getElementById("btn-label");
-    const btnSpinner = document.getElementById("btn-spinner");
+    const transcript = document.getElementById("transcript");
+    const qEl = document.getElementById("q");
+    const sendBtn = document.getElementById("send");
+    const sendLabel = document.getElementById("send-label");
+    const sendSpin = document.getElementById("send-spin");
+    const countEl = document.getElementById("count");
+    let history = [];   // conversation turns sent to the backend for context
 
-    let typingRow = null;
+    fetch(HEALTH_URL).then(r => r.json()).then(d => {
+      const row = document.getElementById("meta-row");
+      document.getElementById("status-text").textContent = "Reference connected";
+      document.getElementById("version-tag").textContent = d.version ? "· " + d.version : "";
+      document.getElementById("corpus-tag").textContent = d.chunks ? "· " + d.chunks + " passages indexed" : "";
+      row.classList.add("online");
+    }).catch(() => {
+      const row = document.getElementById("meta-row");
+      document.getElementById("status-text").textContent = "Reference unreachable";
+      row.classList.add("offline");
+    });
 
-    function appendMessage(content, sender, meta) {
-      const row = document.createElement("div");
-      row.className = "message-row";
+    qEl.addEventListener("input", () => {
+      qEl.style.height = "auto";
+      qEl.style.height = Math.min(qEl.scrollHeight, 140) + "px";
+      const n = qEl.value.length;
+      countEl.textContent = n + " / 1000";
+      countEl.classList.toggle("over", n >= 1000);
+    });
 
-      const avatar = document.createElement("div");
-      avatar.className = "avatar " + sender;
-      avatar.textContent = sender === "user" ? "You" : "TG";
-
-      const bubble = document.createElement("div");
-      bubble.className = "bubble " + sender;
-      bubble.textContent = content;
-
-      if (meta) {
-        const metaEl = document.createElement("div");
-        metaEl.className = "meta";
-        metaEl.textContent = meta;
-        bubble.appendChild(metaEl);
-      }
-
-      row.appendChild(avatar);
-      row.appendChild(bubble);
-      chatEl.appendChild(row);
-      chatEl.scrollTop = chatEl.scrollHeight;
+    function entry(role, cls) {
+      const e = document.createElement("div");
+      e.className = "entry " + cls;
+      const r = document.createElement("div");
+      r.className = "role";
+      const mark = document.createElement("span");
+      mark.className = "mark";
+      mark.textContent = cls === "q" ? "You" : "TG";
+      const label = document.createElement("span");
+      label.textContent = role;
+      r.appendChild(mark); r.appendChild(label);
+      const b = document.createElement("div");
+      b.className = "body";
+      e.appendChild(r); e.appendChild(b);
+      transcript.appendChild(e);
+      transcript.scrollTop = transcript.scrollHeight;
+      return b;
     }
 
-    function showTyping() {
-      if (typingRow) return;
-      typingRow = document.createElement("div");
-      typingRow.className = "message-row";
+    function renderCites(answerBody, citations, usedPages) {
+      if (!citations || !citations.length) return;
+      const wrap = document.createElement("div");
+      wrap.className = "cites";
 
-      const avatar = document.createElement("div");
-      avatar.className = "avatar bot";
-      avatar.textContent = "TG";
+      const bar = document.createElement("div");
+      bar.className = "cites-bar";
+      bar.innerHTML = "<span>Sources</span><span class='cites-pages'>pp. "
+        + usedPages.join(", ") + "</span>";
 
-      const bubble = document.createElement("div");
-      bubble.className = "bubble bot";
+      const toggle = document.createElement("button");
+      toggle.className = "cites-toggle";
+      toggle.textContent = "Show passages";
+      const list = document.createElement("div");
+      list.className = "cites-list";
+      toggle.addEventListener("click", () => {
+        const open = list.classList.toggle("open");
+        toggle.textContent = open ? "Hide passages" : "Show passages";
+      });
+      bar.appendChild(toggle);
 
-      const label = document.createElement("div");
-      label.textContent = "Reviewing relevant pages…";
-      label.style.fontSize = "12px";
-      label.style.color = "#6b7280";
+      citations.forEach(c => {
+        const s = document.createElement("div");
+        s.className = "source";
+        const tag = document.createElement("div");
+        tag.className = "tag";
+        tag.innerHTML = "p. " + c.page + "<span class='sim'>" + c.similarity + "</span>";
+        const ex = document.createElement("div");
+        ex.className = "excerpt";
+        ex.textContent = c.preview + (c.preview.length >= 240 ? "…" : "");
+        s.appendChild(tag); s.appendChild(ex);
+        list.appendChild(s);
+      });
 
-      const typing = document.createElement("div");
-      typing.className = "typing";
-      for (let i = 0; i < 3; i++) {
-        const dot = document.createElement("div");
-        dot.className = "typing-dot";
-        typing.appendChild(dot);
-      }
-
-      bubble.appendChild(label);
-      bubble.appendChild(typing);
-
-      typingRow.appendChild(avatar);
-      typingRow.appendChild(bubble);
-      chatEl.appendChild(typingRow);
-      chatEl.scrollTop = chatEl.scrollHeight;
+      wrap.appendChild(bar);
+      wrap.appendChild(list);
+      answerBody.parentElement.appendChild(wrap);
+      transcript.scrollTop = transcript.scrollHeight;
     }
 
-    function hideTyping() {
-      if (typingRow && typingRow.parentNode) {
-        typingRow.parentNode.removeChild(typingRow);
-      }
-      typingRow = null;
+    function setBusy(b) {
+      sendBtn.disabled = b;
+      sendLabel.textContent = b ? "Reading" : "Ask";
+      sendSpin.style.display = b ? "inline-block" : "none";
     }
 
-    async function sendQuestion(prefilled) {
+    async function ask(prefilled) {
       const text = typeof prefilled === "string" ? prefilled : qEl.value.trim();
       if (!text) return;
 
-      appendMessage(text, "user");
-      qEl.value = "";
+      entry("You", "q").textContent = text;
+      history.push({ role: "user", content: text });
+      qEl.value = ""; qEl.style.height = "auto"; countEl.textContent = "0 / 1000";
+      setBusy(true);
 
-      sendBtn.disabled = true;
-      btnLabel.textContent = "Thinking…";
-      btnSpinner.style.display = "inline-block";
-      showTyping();
+      const body = entry("Assistant", "a");
+      body.innerHTML = "<span class='thinking'>Reviewing relevant pages<span class='pulse'></span></span>";
+
+      let answer = "";
+      let meta = { used_pages: [], citations: [] };
+      let started = false;
 
       try {
-        const res = await fetch(API_URL, {
+        const res = await fetch(STREAM_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: text })
+          body: JSON.stringify({ question: text, history: history.slice(-6) })
         });
 
-        hideTyping();
-
         if (!res.ok) {
-          const errText = await res.text();
-          appendMessage(
-            "Sorry, something went wrong when querying the guidelines.",
-            "bot",
-            `HTTP ${res.status}: ${errText}`
-          );
-        } else {
-          const data = await res.json();
-          const pages = (data.used_pages && data.used_pages.length)
-            ? `Based on guideline pages: ${data.used_pages.join(", ")}`
-            : "No specific pages could be clearly identified.";
-          appendMessage(data.answer, "bot", pages);
+          let detail = "";
+          try { detail = (await res.json()).answer || ""; } catch (_) {}
+          body.textContent = detail || ("Something went wrong (HTTP " + res.status + ").");
+          setBusy(false);
+          return;
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const parts = buffer.split("\n\n");
+          buffer = parts.pop();
+          for (const part of parts) {
+            const line = part.replace(/^data: /, "").trim();
+            if (!line) continue;
+            let evt; try { evt = JSON.parse(line); } catch (_) { continue; }
+            if (evt.type === "meta") {
+              meta = evt;
+            } else if (evt.type === "token") {
+              if (!started) { body.innerHTML = ""; started = true; }
+              answer += evt.text;
+              body.innerHTML = escapeHtml(answer) + "<span class='caret'></span>";
+              transcript.scrollTop = transcript.scrollHeight;
+            } else if (evt.type === "done") {
+              // The Sources bar already lists pages, so drop a trailing
+              // "Pages used: …" line from the prose to avoid repeating it.
+              const cleaned = answer.replace(/\n*\s*Pages used:.*$/is, "").trim();
+              body.innerHTML = escapeHtml(cleaned);
+              history.push({ role: "assistant", content: cleaned });
+              if (history.length > 12) history = history.slice(-12);
+              renderCites(body, meta.citations, meta.used_pages);
+            }
+          }
         }
       } catch (err) {
-        hideTyping();
-        appendMessage(
-          "I couldn't reach the backend at /ask.",
-          "bot",
-          String(err)
-        );
+        body.textContent = "Couldn't reach the reference backend. " + String(err);
       } finally {
-        sendBtn.disabled = false;
-        btnLabel.textContent = "Send";
-        btnSpinner.style.display = "none";
+        setBusy(false);
       }
     }
 
-    document.querySelectorAll(".chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        const q = chip.getAttribute("data-question");
-        sendQuestion(q);
-      });
-    });
+    function escapeHtml(s) {
+      return s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+    }
 
-    qEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        sendQuestion();
-      }
+    document.querySelectorAll(".prompt").forEach(p =>
+      p.addEventListener("click", () => ask(p.getAttribute("data-q"))));
+
+    qEl.addEventListener("keydown", e => {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(); }
     });
   </script>
 </body>

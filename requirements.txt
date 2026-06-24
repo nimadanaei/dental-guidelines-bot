@@ -3,4 +3,5 @@ uvicorn[standard]
 numpy
 pydantic
 pypdf
-openai>=1.0.0
+openai
+slowapi

@@ -1,23 +1,14 @@
-# Use official Python image
 FROM python:3.11-slim
 
-# Work inside /app
 WORKDIR /app
 
-# Install Python dependencies directly (no requirements.txt needed)
-RUN pip install --no-cache-dir \
-    fastapi \
-    "uvicorn[standard]" \
-    numpy \
-    pydantic \
-    pypdf \
-    "openai>=1.0.0"
+# Install deps first so Docker layer-caches them when only code changes
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all project files into the image
+# Copy the rest of the project (including prebuilt embeddings.npy + metadata.pkl)
 COPY . .
 
-# Expose the port Railway will hit
+# Railway/most PaaS inject $PORT; default to 8000 locally. Shell form expands it.
 ENV PORT=8000
-
-# Start the FastAPI app with uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}
